@@ -18,7 +18,7 @@ class ChatMessageModel {
         {
           'text': text,
           if (thoughtSignature != null) 'thoughtSignature': thoughtSignature,
-        }
+        },
       ],
     };
   }
@@ -27,7 +27,7 @@ class ChatMessageModel {
     final content = json['content'] ?? json;
     final parts = content['parts'] as List;
     final firstPart = parts.first as Map<String, dynamic>;
-    
+
     return ChatMessageModel(
       text: firstPart['text'] ?? '',
       role: content['role'] == 'user' ? MessageRole.user : MessageRole.model,
