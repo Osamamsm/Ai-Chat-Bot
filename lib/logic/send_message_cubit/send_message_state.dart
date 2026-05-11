@@ -1,4 +1,4 @@
-import 'package:ai_chat_bot/models/chat_message_model.dart';
+import 'package:ai_chat_bot/data/models/chat_message_model.dart';
 
 abstract class SendMessageState {
   const SendMessageState();
