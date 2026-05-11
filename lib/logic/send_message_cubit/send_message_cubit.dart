@@ -13,15 +13,14 @@ class SendMessageCubit extends Cubit<SendMessageState> {
 
   Future<void> sendMessage(String text) async {
     _messages.add(ChatMessageModel(text: text, role: MessageRole.user));
-    emit(SendMessageLoading(List.unmodifiable(_messages)));
+    emit(SendMessageLoading(_messages));
 
     try {
       final response = await _repository.sendMessage(_messages);
       _messages.add(response);
-      emit(SendMessageSuccess(List.unmodifiable(_messages)));
+      emit(SendMessageSuccess(_messages));
     } catch (e) {
-      emit(SendMessageFailure(List.unmodifiable(_messages), e.toString()));
+      emit(SendMessageFailure(_messages, e.toString()));
     }
   }
 }
-

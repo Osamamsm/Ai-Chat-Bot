@@ -6,7 +6,11 @@ class ApiClient {
 
   ApiClient({String? baseUrl, Dio? dio})
     : _baseUrl = baseUrl ?? '',
-      _dio = dio ?? Dio();
+      _dio = dio ?? Dio() {
+    _dio.interceptors.add(
+      LogInterceptor(requestBody: true, responseBody: true),
+    );
+  }
 
   Future<Response<T>> post<T>(
     String path, {

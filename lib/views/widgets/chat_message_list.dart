@@ -70,4 +70,3 @@ class _ChatMessageListState extends State<ChatMessageList> {
     );
   }
 }
-

@@ -21,6 +21,8 @@ class GeminiMessageService {
       },
     );
 
-    return ChatMessageModel.fromJson(response.data);
+    final candidates = response.data['candidates'] as List;
+
+    return ChatMessageModel.fromJson(candidates.first);
   }
 }

@@ -14,9 +14,10 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
-      leading: const BackButton(color: Colors.black87),
       titleSpacing: 0,
+      centerTitle: true,
       title: Row(
+        mainAxisAlignment: .center,
         children: [
           Container(
             width: 40,
