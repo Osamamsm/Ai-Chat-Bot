@@ -1,8 +1,11 @@
 import 'package:ai_chat_bot/data/models/chat_message_model.dart';
+import 'package:ai_chat_bot/logic/send_message_cubit/send_message_cubit.dart';
+import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
 import 'package:ai_chat_bot/views/widgets/bot_bubble.dart';
 import 'package:ai_chat_bot/views/widgets/chat_input_bar.dart';
 import 'package:ai_chat_bot/views/widgets/user_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatMessageList extends StatefulWidget {
   const ChatMessageList({super.key});
@@ -14,43 +17,8 @@ class ChatMessageList extends StatefulWidget {
 class _ChatMessageListState extends State<ChatMessageList> {
   final ScrollController _scrollController = ScrollController();
 
-  final List<ChatMessageModel> _messages = [
-    ChatMessageModel(
-      text: 'Hello chatGPT, how are you today?',
-      role: MessageRole.user,
-    ),
-    ChatMessageModel(
-      text: "Hello, i'm fine, how can i help you?",
-      role: MessageRole.model,
-    ),
-    ChatMessageModel(
-      text: 'What is the best programming language?',
-      role: MessageRole.user,
-    ),
-    ChatMessageModel(
-      text:
-          'There are many programming languages in the market that are used in '
-          'designing and building websites, various applications and other tasks. '
-          'All these languages are popular in their place and in the way they are '
-          'used, and many programmers learn and use them.',
-      role: MessageRole.model,
-    ),
-    ChatMessageModel(text: 'So explain to me more', role: MessageRole.user),
-    ChatMessageModel(
-      text:
-          'There are many programming languages in the market that are used in '
-          'designing and building websites, various applications and other tasks. '
-          'All these languages are popular in their place and in the way they are '
-          'used, and many programmers learn and use them.',
-      role: MessageRole.model,
-    ),
-  ];
-
-  void _onSend(String text) {
-    setState(() {
-      _messages.add(ChatMessageModel(text: text, role: MessageRole.user));
-    });
-    Future.delayed(const Duration(milliseconds: 100), () {
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
@@ -69,23 +37,37 @@ class _ChatMessageListState extends State<ChatMessageList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            controller: _scrollController,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            itemCount: _messages.length,
-            itemBuilder: (context, index) {
-              final msg = _messages[index];
-              return msg.role == MessageRole.user
-                  ? UserBubble(message: msg)
-                  : BotBubble(message: msg);
-            },
+    return BlocListener<SendMessageCubit, SendMessageState>(
+      listenWhen: (prev, curr) =>
+          curr is SendMessageLoading || curr is SendMessageSuccess,
+      listener: (context, state) => _scrollToBottom(),
+      child: Column(
+        children: [
+          Expanded(
+            child: BlocBuilder<SendMessageCubit, SendMessageState>(
+              builder: (context, state) {
+                final List<ChatMessageModel> messages = state.messages;
+                return ListView.builder(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    final msg = messages[index];
+                    return msg.role == MessageRole.user
+                        ? UserBubble(message: msg)
+                        : BotBubble(message: msg);
+                  },
+                );
+              },
+            ),
           ),
-        ),
-        ChatInputBar(onSend: _onSend),
-      ],
+          ChatInputBar(),
+        ],
+      ),
     );
   }
 }
+

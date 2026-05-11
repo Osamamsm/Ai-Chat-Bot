@@ -6,15 +6,22 @@ import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
 class SendMessageCubit extends Cubit<SendMessageState> {
   final IMessageRepository _repository;
 
-  SendMessageCubit(this._repository) : super(SendMessageInitial());
+  /// Internal message history — the single source of truth.
+  final List<ChatMessageModel> _messages = [];
 
-  Future<void> sendMessage(List<ChatMessageModel> messages) async {
-    emit(SendMessageLoading());
+  SendMessageCubit(this._repository) : super(const SendMessageInitial());
+
+  Future<void> sendMessage(String text) async {
+    _messages.add(ChatMessageModel(text: text, role: MessageRole.user));
+    emit(SendMessageLoading(List.unmodifiable(_messages)));
+
     try {
-      final response = await _repository.sendMessage(messages);
-      emit(SendMessageSuccess(response));
+      final response = await _repository.sendMessage(_messages);
+      _messages.add(response);
+      emit(SendMessageSuccess(List.unmodifiable(_messages)));
     } catch (e) {
-      emit(SendMessageFailure(e.toString()));
+      emit(SendMessageFailure(List.unmodifiable(_messages), e.toString()));
     }
   }
 }
+
