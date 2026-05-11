@@ -1,20 +1,21 @@
 import 'package:ai_chat_bot/data/models/chat_message_model.dart';
 import 'package:ai_chat_bot/logic/send_message_cubit/send_message_cubit.dart';
 import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
-import 'package:ai_chat_bot/views/widgets/bot_bubble.dart';
 import 'package:ai_chat_bot/views/widgets/chat_input_bar.dart';
-import 'package:ai_chat_bot/views/widgets/user_bubble.dart';
+import 'package:ai_chat_bot/views/widgets/chat_messages_list_view.dart';
+import 'package:ai_chat_bot/views/widgets/loading_chat_messages_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChatMessageList extends StatefulWidget {
-  const ChatMessageList({super.key});
+class ChatMessagesBlocBuilder extends StatefulWidget {
+  const ChatMessagesBlocBuilder({super.key});
 
   @override
-  State<ChatMessageList> createState() => _ChatMessageListState();
+  State<ChatMessagesBlocBuilder> createState() =>
+      _ChatMessagesBlocBuilderState();
 }
 
-class _ChatMessageListState extends State<ChatMessageList> {
+class _ChatMessagesBlocBuilderState extends State<ChatMessagesBlocBuilder> {
   final ScrollController _scrollController = ScrollController();
 
   void _scrollToBottom() {
@@ -47,19 +48,16 @@ class _ChatMessageListState extends State<ChatMessageList> {
             child: BlocBuilder<SendMessageCubit, SendMessageState>(
               builder: (context, state) {
                 final List<ChatMessageModel> messages = state.messages;
-                return ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final msg = messages[index];
-                    return msg.role == MessageRole.user
-                        ? UserBubble(message: msg)
-                        : BotBubble(message: msg);
-                  },
+
+                if (state is SendMessageLoading) {
+                  return LoadingChatMessagesListView(
+                    scrollController: _scrollController,
+                    messages: messages,
+                  );
+                }
+                return ChatMessagesListView(
+                  scrollController: _scrollController,
+                  messages: messages,
                 );
               },
             ),
