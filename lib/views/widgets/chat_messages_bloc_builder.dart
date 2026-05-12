@@ -3,6 +3,7 @@ import 'package:ai_chat_bot/logic/send_message_cubit/send_message_cubit.dart';
 import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
 import 'package:ai_chat_bot/views/widgets/chat_input_bar.dart';
 import 'package:ai_chat_bot/views/widgets/chat_messages_list_view.dart';
+import 'package:ai_chat_bot/views/widgets/failed_chat_messages_list_view.dart';
 import 'package:ai_chat_bot/views/widgets/loading_chat_messages_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +54,13 @@ class _ChatMessagesBlocBuilderState extends State<ChatMessagesBlocBuilder> {
                   return LoadingChatMessagesListView(
                     scrollController: _scrollController,
                     messages: messages,
+                  );
+                }
+                if (state is SendMessageFailure) {
+                  return FailedChatMessagesListView(
+                    scrollController: _scrollController,
+                    messages: messages,
+                    errMessage: state.errorMessage,
                   );
                 }
                 return ChatMessagesListView(
