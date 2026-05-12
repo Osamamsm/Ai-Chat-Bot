@@ -1,3 +1,4 @@
+import 'package:ai_chat_bot/data/models/app_exception.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ai_chat_bot/data/models/chat_message_model.dart';
 import 'package:ai_chat_bot/data/repositories/message_repository.dart';
@@ -6,7 +7,6 @@ import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
 class SendMessageCubit extends Cubit<SendMessageState> {
   final IMessageRepository _repository;
 
-  /// Internal message history — the single source of truth.
   final List<ChatMessageModel> _messages = [];
 
   SendMessageCubit(this._repository) : super(const SendMessageInitial());
@@ -20,7 +20,20 @@ class SendMessageCubit extends Cubit<SendMessageState> {
       _messages.add(response);
       emit(SendMessageSuccess(_messages));
     } catch (e) {
-      emit(SendMessageFailure(_messages, e.toString()));
+      final message = e is AppException ? e.message : 'Something went wrong.';
+      emit(SendMessageFailure(_messages, message));
+    }
+  }
+
+  Future<void> retry() async {
+    emit(SendMessageLoading(_messages));
+    try {
+      final response = await _repository.sendMessage(_messages);
+      _messages.add(response);
+      emit(SendMessageSuccess(_messages));
+    } catch (e) {
+      final message = e is AppException ? e.message : 'Something went wrong.';
+      emit(SendMessageFailure(_messages, message));
     }
   }
 }

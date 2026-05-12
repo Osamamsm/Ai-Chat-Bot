@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:ai_chat_bot/data/models/app_exception.dart';
 import 'package:ai_chat_bot/data/models/chat_message_model.dart';
 import 'package:ai_chat_bot/services/api_client.dart';
+
+import '../data/models/api_error_model.dart';
 
 class GeminiMessageService {
   final ApiClient _apiClient;
@@ -20,6 +25,10 @@ class GeminiMessageService {
         },
       },
     );
+    if (response.statusCode != 200) {
+  final error = ApiErrorModel.fromJson(jsonDecode(response.data));
+  throw AppException(friendlyMessage(error));
+}
 
     final candidates = response.data['candidates'] as List;
 
