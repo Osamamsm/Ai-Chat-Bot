@@ -26,9 +26,9 @@ class GeminiMessageService {
       },
     );
     if (response.statusCode != 200) {
-  final error = ApiErrorModel.fromJson(jsonDecode(response.data));
-  throw AppException(friendlyMessage(error));
-}
+      final error = ApiErrorModel.fromJson(jsonDecode(response.data));
+      throw AppException(friendlyMessage(error));
+    }
 
     final candidates = response.data['candidates'] as List;
 

@@ -20,7 +20,12 @@ class _ChatInputBarState extends State<ChatInputBar> {
   void _handleSend(BuildContext context) {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
-    context.read<SendMessageCubit>().sendMessage(text);
+    final state = context.read<SendMessageCubit>().state;
+    if (state is SendMessageFailure) {
+      context.read<SendMessageCubit>().removeLastAndSend(text);
+    } else {
+      context.read<SendMessageCubit>().sendMessage(text);
+    }
     _controller.clear();
   }
 
@@ -123,4 +128,3 @@ class _ChatInputBarState extends State<ChatInputBar> {
     );
   }
 }
-

@@ -24,6 +24,13 @@ class SendMessageCubit extends Cubit<SendMessageState> {
       emit(SendMessageFailure(_messages, message));
     }
   }
+  Future<void> removeLastAndSend(String text) async {
+    
+  if (_messages.isNotEmpty && _messages.last.role == MessageRole.user) {
+    _messages.removeLast();
+  }
+  await sendMessage(text);
+}
 
   Future<void> retry() async {
     emit(SendMessageLoading(_messages));
