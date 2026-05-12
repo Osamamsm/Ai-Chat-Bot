@@ -9,29 +9,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FailedChatMessagesListView extends StatelessWidget {
   const FailedChatMessagesListView({
     super.key,
-    required ScrollController scrollController,
     required this.messages,
     required this.errMessage,
-  }) : _scrollController = scrollController;
+  });
 
-  final ScrollController _scrollController;
   final List<ChatMessageModel> messages;
   final String errMessage;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      controller: _scrollController,
+      reverse: true,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       itemCount: messages.length,
       itemBuilder: (context, index) {
-        if (index == messages.length - 1) {
+        final newIndex = messages.length - (index + 1);
+        if (index == 0) {
           return FailureBubble(
-            message: messages[index].text,
+            message: messages[newIndex].text,
             errorText: errMessage,
             onRetry: context.read<SendMessageCubit>().retry,
           );
         }
-        final msg = messages[index];
+        final msg = messages[newIndex];
         return msg.role == MessageRole.user
             ? UserBubble(message: msg)
             : BotBubble(message: msg);

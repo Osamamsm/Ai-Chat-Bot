@@ -4,22 +4,18 @@ import 'package:ai_chat_bot/views/widgets/user_bubble.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessagesListView extends StatelessWidget {
-  const ChatMessagesListView({
-    super.key,
-    required ScrollController scrollController,
-    required this.messages,
-  }) : _scrollController = scrollController;
+  const ChatMessagesListView({super.key, required this.messages});
 
-  final ScrollController _scrollController;
   final List<ChatMessageModel> messages;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      controller: _scrollController,
+      reverse: true,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       itemCount: messages.length,
       itemBuilder: (context, index) {
-        final msg = messages[index];
+        final newIndex = messages.length - (index + 1);
+        final msg = messages[newIndex];
         return msg.role == MessageRole.user
             ? UserBubble(message: msg)
             : BotBubble(message: msg);
