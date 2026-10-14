@@ -1,5 +1,5 @@
 import 'package:ai_chat_bot/data/models/chat_message_model.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class BotBubble extends StatelessWidget {
   final ChatMessageModel message;

@@ -3,7 +3,7 @@ import 'package:ai_chat_bot/logic/send_message_cubit/send_message_cubit.dart';
 import 'package:ai_chat_bot/views/widgets/bot_bubble.dart';
 import 'package:ai_chat_bot/views/widgets/failure_bubble.dart';
 import 'package:ai_chat_bot/views/widgets/user_bubble.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FailedChatMessagesListView extends StatelessWidget {

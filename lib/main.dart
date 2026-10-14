@@ -1,5 +1,5 @@
 import 'package:ai_chat_bot/views/chat_view.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {

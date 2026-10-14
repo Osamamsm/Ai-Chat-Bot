@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatAppBar({super.key});

@@ -5,7 +5,7 @@ import 'package:ai_chat_bot/views/widgets/chat_input_bar.dart';
 import 'package:ai_chat_bot/views/widgets/chat_messages_list_view.dart';
 import 'package:ai_chat_bot/views/widgets/failed_chat_messages_list_view.dart';
 import 'package:ai_chat_bot/views/widgets/loading_chat_messages_list_view.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatMessagesBlocBuilder extends StatelessWidget {

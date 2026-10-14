@@ -1,7 +1,7 @@
 import 'package:ai_chat_bot/data/models/chat_message_model.dart';
 import 'package:ai_chat_bot/views/widgets/bot_bubble.dart';
 import 'package:ai_chat_bot/views/widgets/user_bubble.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ChatMessagesListView extends StatelessWidget {
   const ChatMessagesListView({super.key, required this.messages});
