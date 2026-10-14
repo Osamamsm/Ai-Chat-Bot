@@ -1,4 +1,4 @@
-import 'package:ai_chat_bot/data/models/api_error_model.dart';
+import 'package:ai_chat_bot/features/chat/model/models/api_error_model.dart';
 
 class AppException implements Exception {
   final String message;

@@ -1,10 +1,10 @@
-import 'package:ai_chat_bot/data/models/chat_message_model.dart';
-import 'package:ai_chat_bot/logic/send_message_cubit/send_message_cubit.dart';
-import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
-import 'package:ai_chat_bot/views/widgets/chat_input_bar.dart';
-import 'package:ai_chat_bot/views/widgets/chat_messages_list_view.dart';
-import 'package:ai_chat_bot/views/widgets/failed_chat_messages_list_view.dart';
-import 'package:ai_chat_bot/views/widgets/loading_chat_messages_list_view.dart';
+import 'package:ai_chat_bot/features/chat/model/models/chat_message_model.dart';
+import 'package:ai_chat_bot/features/chat/view_model/send_message_cubit/send_message_cubit.dart';
+import 'package:ai_chat_bot/features/chat/view_model/send_message_cubit/send_message_state.dart';
+import 'package:ai_chat_bot/features/chat/view/widgets/widgets/chat_input_bar.dart';
+import 'package:ai_chat_bot/features/chat/view/widgets/widgets/chat_messages_list_view.dart';
+import 'package:ai_chat_bot/features/chat/view/widgets/widgets/failed_chat_messages_list_view.dart';
+import 'package:ai_chat_bot/features/chat/view/widgets/widgets/loading_chat_messages_list_view.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

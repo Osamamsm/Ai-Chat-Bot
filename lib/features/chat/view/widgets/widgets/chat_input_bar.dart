@@ -1,5 +1,5 @@
-import 'package:ai_chat_bot/logic/send_message_cubit/send_message_cubit.dart';
-import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
+import 'package:ai_chat_bot/features/chat/view_model/send_message_cubit/send_message_cubit.dart';
+import 'package:ai_chat_bot/features/chat/view_model/send_message_cubit/send_message_state.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

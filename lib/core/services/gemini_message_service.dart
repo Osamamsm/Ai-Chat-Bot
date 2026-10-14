@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:ai_chat_bot/data/models/app_exception.dart';
-import 'package:ai_chat_bot/data/models/chat_message_model.dart';
+import 'package:ai_chat_bot/features/chat/model/models/app_exception.dart';
+import 'package:ai_chat_bot/features/chat/model/models/chat_message_model.dart';
 import 'package:ai_chat_bot/core/services/api_client.dart';
 
-import '../../data/models/api_error_model.dart';
+import '../../features/chat/model/models/api_error_model.dart';
 
 class GeminiMessageService {
   final ApiClient _apiClient;

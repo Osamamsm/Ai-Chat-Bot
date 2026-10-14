@@ -1,8 +1,8 @@
-import 'package:ai_chat_bot/data/models/chat_message_model.dart';
-import 'package:ai_chat_bot/logic/send_message_cubit/send_message_cubit.dart';
-import 'package:ai_chat_bot/views/widgets/bot_bubble.dart';
-import 'package:ai_chat_bot/views/widgets/failure_bubble.dart';
-import 'package:ai_chat_bot/views/widgets/user_bubble.dart';
+import 'package:ai_chat_bot/features/chat/model/models/chat_message_model.dart';
+import 'package:ai_chat_bot/features/chat/view_model/send_message_cubit/send_message_cubit.dart';
+import 'package:ai_chat_bot/features/chat/view/widgets/widgets/bot_bubble.dart';
+import 'package:ai_chat_bot/features/chat/view/widgets/widgets/failure_bubble.dart';
+import 'package:ai_chat_bot/features/chat/view/widgets/widgets/user_bubble.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

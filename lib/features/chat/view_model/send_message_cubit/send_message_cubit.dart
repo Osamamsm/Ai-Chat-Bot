@@ -1,11 +1,11 @@
-import 'package:ai_chat_bot/data/models/app_exception.dart';
+import 'package:ai_chat_bot/features/chat/model/models/app_exception.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ai_chat_bot/data/models/chat_message_model.dart';
-import 'package:ai_chat_bot/data/repositories/message_repository.dart';
-import 'package:ai_chat_bot/logic/send_message_cubit/send_message_state.dart';
+import 'package:ai_chat_bot/features/chat/model/models/chat_message_model.dart';
+import 'package:ai_chat_bot/features/chat/model/repositories/message_repository.dart';
+import 'package:ai_chat_bot/features/chat/view_model/send_message_cubit/send_message_state.dart';
 
 class SendMessageCubit extends Cubit<SendMessageState> {
-  final IMessageRepository _repository;
+  final MessageRepository _repository;
 
   final List<ChatMessageModel> _messages = [];
 
@@ -24,13 +24,13 @@ class SendMessageCubit extends Cubit<SendMessageState> {
       emit(SendMessageFailure(_messages, message));
     }
   }
+
   Future<void> removeLastAndSend(String text) async {
-    
-  if (_messages.isNotEmpty && _messages.last.role == MessageRole.user) {
-    _messages.removeLast();
+    if (_messages.isNotEmpty && _messages.last.role == MessageRole.user) {
+      _messages.removeLast();
+    }
+    await sendMessage(text);
   }
-  await sendMessage(text);
-}
 
   Future<void> retry() async {
     emit(SendMessageLoading(_messages));
